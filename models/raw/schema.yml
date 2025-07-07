@@ -1,0 +1,32 @@
+version: 2
+
+seeds:
+  - name: CUST_AZ12
+    config:
+      schema: raw
+      quote_columns: true
+
+  - name: cust_info
+    config:
+      schema: raw
+      quote_columns: true
+
+  - name: LOC_A101
+    config:
+      schema: raw
+      quote_columns: true
+
+  - name: prd_info
+    config:
+      schema: raw
+      quote_columns: true
+
+  - name: PX_CAT_G1V2
+    config:
+      schema: raw
+      quote_columns: true
+
+  - name: sales_details
+    config:
+      schema: raw
+      quote_columns: true
