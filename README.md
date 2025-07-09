@@ -63,9 +63,6 @@ dbt_project:
 
 ### 3. Install Dependencies (if needed)
 
-```bash
-dbt deps
-```
 
 ### 4. Load Raw Seed Data
 
