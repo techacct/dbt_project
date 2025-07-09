@@ -4,7 +4,7 @@ This repository contains a modular, multi-layered [dbt](https://docs.getdbt.com/
 
 ---
 
-## 🚀 Project Structure
+##  Project Structure
 
 ```bash
 .
@@ -24,7 +24,7 @@ dbt_project/
 
 ---
 
-## 🏐 Layers
+##  Layers
 
 * **Raw**: Seeded data from CSVs loaded into the `raw` schema.
 * **intermediate**: Cleansed data models from the `raw` schema.
@@ -32,7 +32,7 @@ dbt_project/
 
 ---
 
-## 📆 Getting Started
+##  Getting Started
 
 ### 1. Clone the Repository
 
@@ -92,7 +92,7 @@ Then visit: [http://localhost:8080](http://localhost:8080)
 
 ---
 
-## 📊 Key Models
+##  Key Models
 
 | Layer  | Model Name          | Description                                   |
 | ------ | ------------------- | --------------------------------------------- |
@@ -103,7 +103,7 @@ Then visit: [http://localhost:8080](http://localhost:8080)
 
 ---
 
-## 🧰 Testing & Validation
+##  Testing & Validation
 
 * Tests live in `/tests/` and `schema.yml` files
 * Types include `unique`, `not_null`, `accepted_values`
@@ -115,7 +115,7 @@ dbt test
 
 ---
 
-## 📎 Seeds
+##  Seeds
 
 All CSV files are located in the `seeds/` folder:
 
