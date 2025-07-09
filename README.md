@@ -97,9 +97,9 @@ Then visit: [http://localhost:8080](http://localhost:8080)
 | Layer  | Model Name          | Description                                   |
 | ------ | ------------------- | --------------------------------------------- |
 | intermediate | int\_\_sales\_details | Sales transactions with customer/product keys |
-| mart   | dim\_products       | Product dimension with category joins         |
-| gold   | dim\_customers      | Customer dimension table                      |
-| gold   | fact\_sales         | Fact table with sales metrics                 |
+| marts   | dim\_products       | Product dimension with category joins         |
+| marts   | dim\_customers      | Customer dimension table                      |
+| marts   | fact\_sales         | Fact table with sales metrics                 |
 
 ---
 
