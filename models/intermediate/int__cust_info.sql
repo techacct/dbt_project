@@ -1,5 +1,3 @@
--- models/intermediate/int_cust_info.sql
-
 WITH base AS (
     SELECT *
     FROM {{ source('raw', 'cust_info') }}
