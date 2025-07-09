@@ -1,6 +1,6 @@
 # dbt\_project
 
-This repository contains a modular, multi-layered [dbt](https://docs.getdbt.com/) project designed to transform and model data in a Snowflake data warehouse using the medallion architecture: **raw → silver → gold**.
+This repository contains a modular, multi-layered [dbt](https://docs.getdbt.com/) project designed to transform and model data in a Snowflake data warehouse using the medallion architecture: **raw → intermediate → marts**.
 
 ---
 
