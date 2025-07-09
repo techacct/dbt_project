@@ -131,7 +131,7 @@ They are configured to load into the `raw` schema in `dbt_project.yml`:
 seeds:
   dbt_project:
     +schema: raw
-    +quote_columns: true
+    +quote_columns: false
 ```
 
 ---
