@@ -27,7 +27,7 @@ dbt_project/
 ## 🏐 Layers
 
 * **Raw**: Seeded data from CSVs loaded into the `raw` schema.
-* **intermediate**: Cleansed data models in the `raw` schema .
+* **intermediate**: Cleansed data models from the `raw` schema.
 * **marts**: Analytical marts and reporting models (e.g., `fact_sales`, `dim_products`).
 
 ---
