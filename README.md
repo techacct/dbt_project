@@ -1,49 +1,68 @@
-# dbt\_project
+# dbt_project
 
-This repository contains a modular, multi-layered [dbt](https://docs.getdbt.com/) project designed to transform and model data in a Snowflake data warehouse using the medallion architecture: **raw → intermediate → marts**.
+This dbt project is designed to transform and model data in a Snowflake data warehouse, following the medallion architecture (raw → intermediate → marts). It includes data loading from CSV files, data transformation models, and data quality tests.
 
 ---
 
-##  Project Structure
+## Project Structure
 
 ```bash
 .
 dbt_project/
+├── datasets/            # Source CSV data files
 ├── models/
-│   ├── raw/             # Base seed tables (ingested from CSVs)
-│   ├── intermediate/    # Cleansed data
+│   ├── raw/             # Base tables (ingested from CSVs)
+│   ├── intermediate/    # Cleansed and transformed data
 │   └── marts/           # Final analytics-ready marts (facts and dims)
-├── seeds/               # Source CSV data files
 ├── macros/              # Custom Jinja macros
-├── tests/               # Generic and singular tests
-├── snapshots/           # (Optional) Snapshots for SCD
+├── tests/               # Data quality tests
+├── extract_load.py      # Python script to load data into Snowflake
 ├── dbt_project.yml      # Project configuration
-├── CONTRIBUTING.md      # Contribution guidelines
 └── README.md
 ```
 
 ---
 
-##  Layers
+## Getting Started
 
-* **Raw**: Seeded data from CSVs loaded into the `raw` schema.
-* **intermediate**: Cleansed data models from the `raw` schema.
-* **marts**: Analytical marts and reporting models (e.g., `fact_sales`, `dim_products`).
+### 1. Prerequisites
 
----
+- Python 3.x
+- dbt Core
+- Snowflake account
 
-##  Getting Started
-
-### 1. Clone the Repository
+### 2. Clone the Repository
 
 ```bash
-git clone https://github.com/techacct/dbt_project.git
+git clone <your-repo-url>
 cd dbt_project
 ```
 
-### 2. Set up Your Profile
+### 3. Install Dependencies
 
-Edit `~/.dbt/profiles.yml`:
+Install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Set up Environment Variables
+
+Create a `.env` file in the project root and add your Snowflake credentials:
+
+```
+SNOWFLAKE_USER=<your_user>
+SNOWFLAKE_PASS=<your_password>
+SNOWFLAKE_ACCOUNT=<your_account>
+SNOWFLAKE_WAREHOUSE=<your_warehouse>
+SNOWFLAKE_DATABASE=<your_database>
+SNOWFLAKE_SCHEMA=raw
+SNOWFLAKE_ROLE=<your_role>
+```
+
+### 5. Set up dbt Profile
+
+Edit your `~/.dbt/profiles.yml` file to include a profile for this project:
 
 ```yaml
 dbt_project:
@@ -57,57 +76,29 @@ dbt_project:
       role: <your_role>
       database: <your_database>
       warehouse: <your_warehouse>
-      schema: public  # Default, overridden in model configs
+      schema: public
       threads: 4
 ```
 
-### 3. Install Dependencies (if needed)
+### 6. Load Raw Data
 
-
-### 4. Load Raw Seed Data
+Run the `extract_load.py` script to load the CSV data from the `datasets` directory into the `raw` schema in Snowflake:
 
 ```bash
-dbt seed --full-refresh
+python extract_load.py
 ```
 
-### 5. Run All Models
+### 7. Run dbt Models
+
+Execute the dbt models to transform the data:
 
 ```bash
 dbt run
 ```
 
-### 6. View Lineage Graph
+### 8. Test the Data
 
-```bash
-dbt docs generate
-```
-
-```bash
-dbt docs serve
-```
-
-Then visit: [http://localhost:8080](http://localhost:8080)
-
-![Lineage Graph Screenshot](docs/images/dbt_lineage_example.png)
-
----
-
-##  Key Models
-
-| Layer  | Model Name          | Description                                   |
-| ------ | ------------------- | --------------------------------------------- |
-| intermediate | int\_\_sales\_details | Sales transactions with customer/product keys |
-| marts   | dim\_products       | Product dimension with category joins         |
-| marts   | dim\_customers      | Customer dimension table                      |
-| marts   | fact\_sales         | Fact table with sales metrics                 |
-
----
-
-##  Testing & Validation
-
-* Tests live in `/tests/` and `schema.yml` files
-* Types include `unique`, `not_null`, `accepted_values`
-* Use `dbt test` to validate model outputs
+Run the dbt tests to ensure data quality:
 
 ```bash
 dbt test
@@ -115,23 +106,21 @@ dbt test
 
 ---
 
-##  Seeds
+## Models
 
-All CSV files are located in the `seeds/` folder:
-
-* `sales_details.csv`
-* `cust_info.csv`
-* `prd_info.csv`
-* `PX_CAT_G1V2.csv`
-* and others...
-
-They are configured to load into the `raw` schema in `dbt_project.yml`:
-
-```yaml
-seeds:
-  dbt_project:
-    +schema: raw
-    +quote_columns: false
-```
+- **Raw:** The `raw` layer contains the initial data loaded from the CSV files. The tables in this layer are defined in `models/raw/source.yml`.
+- **Intermediate:** The `intermediate` layer contains cleansed and transformed data from the `raw` layer. These models perform operations like data type casting, cleaning, and joining datasets.
+- **Marts:** The `marts` layer provides the final, analytics-ready data models. This layer includes fact and dimension tables, such as `fact_sales`, `dim_customers`, and `dim_products`.
 
 ---
+
+## Datasets
+
+The following CSV files are located in the `datasets/` directory and are loaded into the `raw` schema:
+
+- `CUST_AZ12.csv`
+- `cust_info.csv`
+- `LOC_A101.csv`
+- `prd_info.csv`
+- `PX_CAT_G1V2.csv`
+- `sales_details.csv`
