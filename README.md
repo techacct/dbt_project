@@ -23,6 +23,12 @@ dbt_project/
 
 ---
 
+## Architecture
+
+![dbt Project Architecture](arc_design.png)
+
+---
+
 ## Getting Started
 
 ### 1. Prerequisites
